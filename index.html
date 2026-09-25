@@ -10,62 +10,56 @@
 </head>
 <body>
   <main class="timer-shell" aria-live="polite">
-    <div class="brandbar" aria-hidden="true">
-      <span class="brandmark">FOCUS / BREAK</span>
-      <span class="brandline"></span>
-      <span class="brandmeta">INTERVAL 01</span>
-    </div>
+    <header class="topbar">
+      <div class="topbar__brand">Focus / Break</div>
+      <div class="topbar__meta">Pomodoro timer</div>
+    </header>
 
     <section class="panel panel--focus is-active" id="focusPanel" aria-label="Focus timer">
-      <div class="panel__number">01</div>
-      <div class="panel__stage">
-        <div class="orb orb--focus">
-          <svg class="progress-ring" viewBox="0 0 240 240" aria-hidden="true">
-            <circle class="progress-ring__track" cx="120" cy="120" r="108"></circle>
-            <circle class="progress-ring__value" id="focusProgress" cx="120" cy="120" r="108"></circle>
-          </svg>
-          <div class="orb__content">
-            <span class="orb__kicker">FOCUS</span>
-            <div class="time" id="focusTime">25:00</div>
-            <span class="orb__sub">deep work</span>
-          </div>
+      <div class="panel__ambient panel__ambient--one"></div>
+      <div class="panel__ambient panel__ambient--two"></div>
+
+      <div class="panel__content">
+        <div class="panel__header">
+          <span class="panel__label">Focus</span>
+          <span class="panel__state" id="focusState">Ready</span>
+        </div>
+
+        <div class="timer-block">
+          <div class="time" id="focusTime">25:00</div>
+          <p class="timer-block__caption">Stay with one thing.</p>
+        </div>
+
+        <div class="panel__footer">
+          <span>25 min session</span>
+          <span>Space to start / pause</span>
         </div>
       </div>
-      <div class="panel__caption">
-        <span id="focusState">READY</span>
-        <p>Protect the next 25 minutes.</p>
-      </div>
-      <div class="panel__word" aria-hidden="true">FOCUS</div>
     </section>
 
     <section class="panel panel--break" id="breakPanel" aria-label="Break timer">
-      <div class="panel__number">02</div>
-      <div class="panel__stage">
-        <div class="orb orb--break">
-          <svg class="progress-ring" viewBox="0 0 240 240" aria-hidden="true">
-            <circle class="progress-ring__track" cx="120" cy="120" r="108"></circle>
-            <circle class="progress-ring__value" id="breakProgress" cx="120" cy="120" r="108"></circle>
-          </svg>
-          <div class="orb__content">
-            <span class="orb__kicker">BREAK</span>
-            <div class="time" id="breakTime">05:00</div>
-            <span class="orb__sub">reset gently</span>
-          </div>
+      <div class="panel__ambient panel__ambient--one"></div>
+      <div class="panel__ambient panel__ambient--two"></div>
+
+      <div class="panel__content">
+        <div class="panel__header">
+          <span class="panel__label">Break</span>
+          <span class="panel__state" id="breakState">Next</span>
+        </div>
+
+        <div class="timer-block">
+          <div class="time" id="breakTime">05:00</div>
+          <p class="timer-block__caption">Breathe. Move. Reset.</p>
+        </div>
+
+        <div class="panel__footer">
+          <span>5 min reset</span>
+          <span>Cycle <strong id="cycleCount">1</strong></span>
         </div>
       </div>
-      <div class="panel__caption">
-        <span id="breakState">NEXT</span>
-        <p>Step away. Come back lighter.</p>
-      </div>
-      <div class="panel__word" aria-hidden="true">BREAK</div>
-      <div class="cycle-badge">CYCLE <strong id="cycleCount">1</strong></div>
     </section>
 
-    <div class="center-spine" aria-hidden="true">
-      <span></span>
-      <i></i>
-      <span></span>
-    </div>
+    <div class="split-mark" aria-hidden="true"><span></span></div>
 
     <div class="fullscreen-notice" id="fullscreenNotice" role="status" aria-live="polite"></div>
 
