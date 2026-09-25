@@ -4,6 +4,8 @@ const breakPanel = document.getElementById('breakPanel');
 const focusTime = document.getElementById('focusTime');
 const breakTime = document.getElementById('breakTime');
 const focusState = document.getElementById('focusState');
+const focusProgress = document.getElementById('focusProgress');
+const breakProgress = document.getElementById('breakProgress');
 const breakState = document.getElementById('breakState');
 const toggleButton = document.getElementById('toggleButton');
 const toggleText = document.getElementById('toggleText');
@@ -38,11 +40,23 @@ function formatTime(totalSeconds) {
   const seconds = (totalSeconds % 60).toString().padStart(2, '0');
   return `${minutes}:${seconds}`;
 }
+const RING_RADIUS = 108;
+const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
+
+function setRingProgress(element, remaining, total) {
+  if (!element) return;
+  const ratio = total > 0 ? Math.max(0, Math.min(1, remaining / total)) : 0;
+  element.style.strokeDasharray = String(RING_CIRCUMFERENCE);
+  element.style.strokeDashoffset = String(RING_CIRCUMFERENCE * (1 - ratio));
+}
+
 function render() {
   const focusSeconds = state.mode === 'focus' ? state.remaining : state.focusMinutes * 60;
   const breakSeconds = state.mode === 'break' ? state.remaining : state.breakMinutes * 60;
   focusTime.textContent = formatTime(focusSeconds);
   breakTime.textContent = formatTime(breakSeconds);
+  setRingProgress(focusProgress, focusSeconds, state.focusMinutes * 60);
+  setRingProgress(breakProgress, breakSeconds, state.breakMinutes * 60);
   cycleCount.textContent = state.cycle;
   focusPanel.classList.toggle('is-active', state.mode === 'focus');
   breakPanel.classList.toggle('is-active', state.mode === 'break');
