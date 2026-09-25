@@ -76,15 +76,15 @@ button { cursor: pointer; }
 .panel__eyebrow--with-icon {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 11px;
 }
 
 .section-icon {
-  width: 17px;
-  height: 17px;
+  width: 23px;
+  height: 23px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.6;
+  stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
   opacity: 0.78;
