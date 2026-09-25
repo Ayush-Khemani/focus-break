@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111111" />
+  <meta name="description" content="A minimal split-screen focus and break timer." />
+  <title>Focus / Break</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="timer-shell" aria-live="polite">
+    <section class="panel panel--focus is-active" id="focusPanel" aria-label="Focus timer">
+      <div class="panel__topline">
+        <span class="panel__eyebrow">Focus</span>
+        <span class="panel__state" id="focusState">Active</span>
+      </div>
+      <div class="panel__center">
+        <p class="panel__label">Deep work</p>
+        <div class="time" id="focusTime">25:00</div>
+        <p class="panel__hint">One thing at a time.</p>
+      </div>
+      <div class="panel__footer">
+        <span>25 min</span>
+        <span class="shortcut">Space to start</span>
+      </div>
+    </section>
+
+    <section class="panel panel--break" id="breakPanel" aria-label="Break timer">
+      <div class="panel__topline">
+        <span class="panel__eyebrow">Break</span>
+        <span class="panel__state" id="breakState">Next</span>
+      </div>
+      <div class="panel__center">
+        <p class="panel__label">Step away</p>
+        <div class="time" id="breakTime">05:00</div>
+        <p class="panel__hint">Reset, then come back fresh.</p>
+      </div>
+      <div class="panel__footer">
+        <span>5 min</span>
+        <span>Cycle <strong id="cycleCount">1</strong></span>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="controls" aria-label="Timer controls">
+      <button class="icon-button" id="resetButton" type="button" aria-label="Reset timer" title="Reset (R)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.9 7.5A8 8 0 1 1 4 12h2a6 6 0 1 0 1.7-4.2L10 10H4V4l.9.9Z"/></svg>
+      </button>
+      <button class="primary-button" id="toggleButton" type="button" aria-label="Start timer">
+        <span id="toggleIcon">▶</span>
+        <span id="toggleText">Start</span>
+      </button>
+      <button class="icon-button" id="settingsButton" type="button" aria-label="Open settings" title="Settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.4 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2-1.6-2-3.4-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-4l-.4 3a7.5 7.5 0 0 0-1.7 1L6.5 6l-2 3.4 2 1.6a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2 1.6 2 3.4 2.4-1a7.5 7.5 0 0 0 1.7 1l.4 3h4l.4-3a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.4-2.1-1.6ZM13 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"/></svg>
+      </button>
+    </div>
+  </main>
+
+  <dialog class="settings" id="settingsDialog">
+    <form method="dialog" class="settings__card" id="settingsForm">
+      <div class="settings__header">
+        <div>
+          <p class="settings__eyebrow">Timer settings</p>
+          <h1>Make it yours.</h1>
+        </div>
+        <button class="settings__close" value="cancel" aria-label="Close settings">×</button>
+      </div>
+      <label>
+        <span>Focus minutes</span>
+        <input id="focusMinutes" type="number" min="1" max="120" value="25" inputmode="numeric" />
+      </label>
+      <label>
+        <span>Break minutes</span>
+        <input id="breakMinutes" type="number" min="1" max="60" value="5" inputmode="numeric" />
+      </label>
+      <label class="toggle-row">
+        <span>
+          <strong>Auto-start next session</strong>
+          <small>Move straight from focus to break.</small>
+        </span>
+        <input id="autoStart" type="checkbox" />
+      </label>
+      <div class="settings__actions">
+        <button class="secondary-button" value="cancel" type="button" id="cancelSettings">Cancel</button>
+        <button class="save-button" value="default" type="submit">Save</button>
+      </div>
+    </form>
+  </dialog>
+  <script src="script.js"></script>
+</body>
+</html>
