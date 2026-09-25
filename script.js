@@ -9,6 +9,8 @@ const toggleText = document.getElementById('toggleText');
 const toggleIcon = document.getElementById('toggleIcon');
 const resetButton = document.getElementById('resetButton');
 const settingsButton = document.getElementById('settingsButton');
+const fullscreenButton = document.getElementById('fullscreenButton');
+const fullscreenIcon = document.getElementById('fullscreenIcon');
 const settingsDialog = document.getElementById('settingsDialog');
 const settingsForm = document.getElementById('settingsForm');
 const cancelSettings = document.getElementById('cancelSettings');
@@ -77,7 +79,8 @@ function tick() {
   if (!state.running || !state.expectedEnd) return;
   const diff = Math.max(0, Math.ceil((state.expectedEnd - Date.now()) / 1000));
   state.remaining = diff;
-  render();
+  updateFullscreenButton();
+render();
   if (diff <= 0) completeSession();
 }
 function start() {
@@ -94,6 +97,25 @@ function pause() {
   render();
 }
 function toggle() { state.running ? pause() : start(); }
+
+async function toggleFullscreen() {
+  try {
+    if (!document.fullscreenElement) {
+      await document.documentElement.requestFullscreen();
+    } else {
+      await document.exitFullscreen();
+    }
+  } catch (_) {}
+}
+
+function updateFullscreenButton() {
+  const active = Boolean(document.fullscreenElement);
+  fullscreenButton.setAttribute('aria-label', active ? 'Exit fullscreen' : 'Enter fullscreen');
+  fullscreenButton.title = active ? 'Exit fullscreen (F)' : 'Fullscreen (F)';
+  fullscreenIcon.innerHTML = active
+    ? '<path d="M9 3H7v4H3v2h6V3Zm6 0v6h6V7h-4V3h-2ZM3 15v2h4v4h2v-6H3Zm12 0v6h2v-4h4v-2h-6Z"/>'
+    : '<path d="M7 3H3v4h2V5h2V3Zm14 4V3h-4v2h2v2h2ZM5 17H3v4h4v-2H5v-2Zm16 0h-2v2h-2v2h4v-4Z"/>';
+}
 function completeSession() {
   stopInterval();
   beep();
@@ -126,6 +148,8 @@ function applySettings() {
 toggleButton.addEventListener('click', toggle);
 resetButton.addEventListener('click', reset);
 settingsButton.addEventListener('click', () => settingsDialog.showModal());
+fullscreenButton.addEventListener('click', toggleFullscreen);
+document.addEventListener('fullscreenchange', updateFullscreenButton);
 cancelSettings.addEventListener('click', () => settingsDialog.close());
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -142,5 +166,6 @@ document.addEventListener('keydown', (event) => {
     toggle();
   }
   if (event.key.toLowerCase() === 'r') reset();
+  if (event.key.toLowerCase() === 'f') toggleFullscreen();
 });
 render();
