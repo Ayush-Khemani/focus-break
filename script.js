@@ -1,3 +1,4 @@
+const timerShell = document.querySelector('.timer-shell');
 const focusPanel = document.getElementById('focusPanel');
 const breakPanel = document.getElementById('breakPanel');
 const focusTime = document.getElementById('focusTime');
@@ -18,6 +19,7 @@ const focusMinutesInput = document.getElementById('focusMinutes');
 const breakMinutesInput = document.getElementById('breakMinutes');
 const autoStartInput = document.getElementById('autoStart');
 const cycleCount = document.getElementById('cycleCount');
+const fullscreenNotice = document.getElementById('fullscreenNotice');
 
 const state = {
   mode: 'focus',
@@ -79,8 +81,7 @@ function tick() {
   if (!state.running || !state.expectedEnd) return;
   const diff = Math.max(0, Math.ceil((state.expectedEnd - Date.now()) / 1000));
   state.remaining = diff;
-  updateFullscreenButton();
-render();
+  render();
   if (diff <= 0) completeSession();
 }
 function start() {
@@ -98,18 +99,58 @@ function pause() {
 }
 function toggle() { state.running ? pause() : start(); }
 
+function isFullscreenActive() {
+  return Boolean(
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.msFullscreenElement
+  );
+}
+
+function showFullscreenNotice(message) {
+  if (!fullscreenNotice) return;
+  fullscreenNotice.textContent = message;
+  fullscreenNotice.classList.add('is-visible');
+  window.clearTimeout(showFullscreenNotice.timeoutId);
+  showFullscreenNotice.timeoutId = window.setTimeout(() => {
+    fullscreenNotice.classList.remove('is-visible');
+  }, 5000);
+}
+
 async function toggleFullscreen() {
   try {
-    if (!document.fullscreenElement) {
-      await document.documentElement.requestFullscreen();
+    if (!isFullscreenActive()) {
+      if (timerShell.requestFullscreen) {
+        await timerShell.requestFullscreen({ navigationUI: 'hide' });
+      } else if (timerShell.webkitRequestFullscreen) {
+        timerShell.webkitRequestFullscreen();
+      } else if (timerShell.msRequestFullscreen) {
+        timerShell.msRequestFullscreen();
+      } else {
+        showFullscreenNotice('This browser does not support page fullscreen. Press F11 for browser fullscreen.');
+        return;
+      }
     } else {
-      await document.exitFullscreen();
+      if (document.exitFullscreen) {
+        await document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
     }
-  } catch (_) {}
+  } catch (error) {
+    const embedded = window.self !== window.top;
+    showFullscreenNotice(
+      embedded
+        ? 'Fullscreen is blocked inside this preview. Open the GitHub Pages site directly in a browser tab, then try again.'
+        : 'The browser blocked fullscreen. Try the button again or press F11 for browser fullscreen.'
+    );
+  }
 }
 
 function updateFullscreenButton() {
-  const active = Boolean(document.fullscreenElement);
+  const active = isFullscreenActive();
   fullscreenButton.setAttribute('aria-label', active ? 'Exit fullscreen' : 'Enter fullscreen');
   fullscreenButton.title = active ? 'Exit fullscreen (F)' : 'Fullscreen (F)';
   fullscreenIcon.innerHTML = active
@@ -150,6 +191,7 @@ resetButton.addEventListener('click', reset);
 settingsButton.addEventListener('click', () => settingsDialog.showModal());
 fullscreenButton.addEventListener('click', toggleFullscreen);
 document.addEventListener('fullscreenchange', updateFullscreenButton);
+document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
 cancelSettings.addEventListener('click', () => settingsDialog.close());
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
