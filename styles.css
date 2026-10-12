@@ -111,11 +111,20 @@ button { cursor: pointer; }
 
 .session-visual {
   position: relative;
-  width: clamp(108px, 9vw, 140px);
+  width: clamp(250px, 25vw, 360px);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
   margin: 0 0 22px;
+}
+
+.session-visual__content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  gap: 18px;
+  text-align: center;
 }
 
 .session-ring {
@@ -154,8 +163,8 @@ button { cursor: pointer; }
 }
 
 .session-symbol {
-  width: 46%;
-  height: 46%;
+  width: 22%;
+  height: 22%;
   fill: none;
   stroke: currentColor;
   stroke-width: 2.1;
@@ -165,8 +174,8 @@ button { cursor: pointer; }
 }
 
 .session-symbol--focus {
-  width: 50%;
-  height: 50%;
+  width: 24%;
+  height: 24%;
 }
 
 .steam {
@@ -187,7 +196,7 @@ button { cursor: pointer; }
 
 .time {
   margin-left: -0.055em;
-  font-size: clamp(5rem, 13vw, 13rem);
+  font-size: clamp(3.8rem, 6.2vw, 6.4rem);
   font-weight: 720;
   letter-spacing: -0.09em;
   line-height: 0.84;
@@ -455,12 +464,12 @@ button { cursor: pointer; }
   }
 
   .session-visual {
-    width: 92px;
+    width: min(72vw, 300px);
     margin-bottom: 16px;
   }
 
   .time {
-    font-size: clamp(4.3rem, 23vw, 7.2rem);
+    font-size: clamp(3.4rem, 13vw, 5rem);
   }
 
   .divider {
