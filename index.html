@@ -12,16 +12,26 @@
   <main class="timer-shell" aria-live="polite">
     <section class="panel panel--focus is-active" id="focusPanel" aria-label="Focus timer">
       <div class="panel__topline">
-        <span class="panel__eyebrow panel__eyebrow--with-icon">
-          <svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M7 3H3v4M17 3h4v4M7 21H3v-4M17 21h4v-4M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0 2.2a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6Z"/>
-          </svg>
-          Focus
-        </span>
+        <span class="panel__eyebrow">Focus</span>
         <span class="panel__state" id="focusState">Active</span>
       </div>
       <div class="panel__center">
         <p class="panel__label">Deep work</p>
+        <div class="session-visual" aria-hidden="true">
+          <svg class="session-ring" viewBox="0 0 240 240">
+            <circle class="session-ring__track" cx="120" cy="120" r="108"></circle>
+            <circle class="session-ring__progress" id="focusProgress" cx="120" cy="120" r="108"></circle>
+          </svg>
+          <svg class="session-symbol session-symbol--focus" viewBox="0 0 64 64">
+            <circle cx="22" cy="13" r="5"></circle>
+            <path d="M17 24c2.5-4.5 9.5-4.5 12 0l4 8"></path>
+            <path d="M11 32h25"></path>
+            <path d="M14 32v13M34 32v13"></path>
+            <path d="M37 25h15v11H37z"></path>
+            <path d="M44.5 36v5M39 41h11"></path>
+            <path d="M23 28l5 4 5-5"></path>
+          </svg>
+        </div>
         <div class="time" id="focusTime">25:00</div>
         <p class="panel__hint">One thing at a time.</p>
       </div>
@@ -33,16 +43,23 @@
 
     <section class="panel panel--break" id="breakPanel" aria-label="Break timer">
       <div class="panel__topline">
-        <span class="panel__eyebrow panel__eyebrow--with-icon">
-          <svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M5 8h11v7a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V8Zm11 2h1.5a2.5 2.5 0 0 1 0 5H16M8 4c0 1 .7 1.4.7 2.4M12 4c0 1 .7 1.4.7 2.4"/>
-          </svg>
-          Break
-        </span>
+        <span class="panel__eyebrow">Break</span>
         <span class="panel__state" id="breakState">Next</span>
       </div>
       <div class="panel__center">
         <p class="panel__label">Step away</p>
+        <div class="session-visual" aria-hidden="true">
+          <svg class="session-ring" viewBox="0 0 240 240">
+            <circle class="session-ring__track" cx="120" cy="120" r="108"></circle>
+            <circle class="session-ring__progress" id="breakProgress" cx="120" cy="120" r="108"></circle>
+          </svg>
+          <svg class="session-symbol session-symbol--break" viewBox="0 0 64 64">
+            <path d="M16 25h29v15c0 7-5 12-12 12h-5c-7 0-12-5-12-12V25z"></path>
+            <path d="M45 29h4a7 7 0 0 1 0 14h-4"></path>
+            <path class="steam steam--one" d="M24 20c-4-5 5-6 1-12"></path>
+            <path class="steam steam--two" d="M34 20c-4-5 5-6 1-12"></path>
+          </svg>
+        </div>
         <div class="time" id="breakTime">05:00</div>
         <p class="panel__hint">Reset, then come back fresh.</p>
       </div>
