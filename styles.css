@@ -515,3 +515,58 @@ button { cursor: pointer; }
     animation-duration: 0.001ms !important;
   }
 }
+
+
+.panel__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-action {
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.64rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+
+.panel-action:hover {
+  opacity: 1;
+}
+
+.panel-action--switch {
+  display: none;
+}
+
+.panel:not(.is-active) .panel-action--switch {
+  display: inline-flex;
+}
+
+.panel.is-active .panel-action--switch {
+  display: none;
+}
+
+.panel:not(.is-active) .panel-action:not(.panel-action--switch) {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .panel__footer {
+    gap: 10px;
+  }
+
+  .panel__actions {
+    gap: 6px;
+  }
+
+  .panel-action {
+    padding: 6px 8px;
+    font-size: 0.58rem;
+  }
+}
