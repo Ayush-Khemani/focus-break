@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#111111" />
   <meta name="description" content="A minimal split-screen focus and break timer." />
   <title>Focus / Break</title>
-  <link rel="stylesheet" href="styles.css?v=20261012-2138" />
+  <link rel="stylesheet" href="styles.css?v=20261014-state" />
 </head>
 <body>
   <main class="timer-shell" aria-live="polite">
@@ -39,7 +39,10 @@
       </div>
       <div class="panel__footer">
         <span>25 min</span>
-        <span class="shortcut">Space to start</span>
+        <div class="panel__actions">
+          <button class="panel-action" id="focusAddTime" type="button" title="Add 5 minutes to focus">+5 min</button>
+          <button class="panel-action panel-action--switch" id="focusSwitch" type="button">Switch to Focus</button>
+        </div>
       </div>
     </section>
 
@@ -68,8 +71,11 @@
         <p class="panel__hint">Reset, then come back fresh.</p>
       </div>
       <div class="panel__footer">
-        <span>5 min</span>
         <span>Cycle <strong id="cycleCount">1</strong></span>
+        <div class="panel__actions">
+          <button class="panel-action" id="breakAddTime" type="button" title="Add 5 minutes to break">+5 min</button>
+          <button class="panel-action panel-action--switch" id="breakSwitch" type="button">Switch to Break</button>
+        </div>
       </div>
     </section>
 
@@ -124,6 +130,6 @@
       </div>
     </form>
   </dialog>
-  <script src="script.js?v=20261012-2138"></script>
+  <script src="script.js?v=20261014-state"></script>
 </body>
 </html>
